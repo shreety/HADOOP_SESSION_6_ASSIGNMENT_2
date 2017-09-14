@@ -1,0 +1,6 @@
+1.INSERT INTO temperature_data_date_modified select zipcode,temp,from_unixtime(unix_timestamp(date,'dd-mm-yyyy'),'yyyy-mm-dd') from temperature_data;
+2.select max(temp),year(date) from temperature_data_date_modified group by year(date);
+3.select max(temp),count(year(date)) as count_year_entry,year(date) from temperature_data_date_modified group by year(date) having count_year_entry > 1;
+4.insert overwrite local directory '/home/cloudera/Desktop/Hive_view' row format delimited fields terminated by '|' select max(temp),count(year(date)) as count_year_entry,year(date) from temperature_data_date_modified group by year(date) having count_year_entry > 1;
+
+
